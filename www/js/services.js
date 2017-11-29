@@ -2,6 +2,7 @@ angular.module('starter.services', [])
 
 .factory('ContactsServices', function($http,$ionicLoading,$state) {
   var contacts = [];
+  var base_url = 'https://app.alegra.com/api/v1/contacts/';
   /*
     En el header Authorization se debe poner el correo y el token del usuario separado por dos puntos (:), todo en base64.
 
@@ -17,12 +18,29 @@ angular.module('starter.services', [])
       $ionicLoading.show();
       $http({ 
           method : "GET",
-          url : "https://app.alegra.com/api/v1/contacts/?order_field=id",   
+          url : base_url+"?order_field=id",   
           headers: {'Authorization': 'Basic '+basicAuth}
       }).then(function mySuccess(response) {
           $ionicLoading.hide();
           contacts = response.data; 
-          addMoreContacts(contacts.slice(0,5));
+          addMoreContacts(contacts.slice(0,10));
+      }, function myError(response) {
+          $ionicLoading.hide();
+          return null;
+      }); 
+      return null;
+    },
+    getByQuery: function(query,addMoreContacts) {
+      $ionicLoading.show();
+      $http({ 
+          method : "GET",
+          url : base_url+"?order_field=id&query="+query,   
+          headers: {'Authorization': 'Basic '+basicAuth}
+      }).then(function mySuccess(response) {
+          $ionicLoading.hide();
+          contacts = response.data; 
+          console.log(contacts);
+          addMoreContacts(contacts);
       }, function myError(response) {
           $ionicLoading.hide();
           return null;
@@ -30,7 +48,7 @@ angular.module('starter.services', [])
       return null;
     },
     getLimit: function(start,addMoreContacts){
-      addMoreContacts(contacts.slice(start,start+5));
+      addMoreContacts(contacts.slice(start,start+10));
     },
     get: function(contactId) {
       for (var i = 0; i < contacts.length; i++) {
@@ -44,7 +62,7 @@ angular.module('starter.services', [])
       $ionicLoading.show();
       $http({ 
           method : "DELETE",
-          url : "https://app.alegra.com/api/v1/contacts/"+contactId,   
+          url : base_url+contactId,   
           headers: {'Authorization': 'Basic '+basicAuth}
       }).then(function mySuccess(response) { 
           $ionicLoading.hide();
@@ -59,7 +77,7 @@ angular.module('starter.services', [])
       $ionicLoading.show();
       $http({ 
           method : "POST",
-          url : "https://app.alegra.com/api/v1/contacts/",   
+          url : base_url,   
           headers: {'Authorization': 'Basic '+basicAuth},
           data: contact
       }).then(function mySuccess(response) { 
@@ -75,6 +93,9 @@ angular.module('starter.services', [])
     },
     countall: function(){
       return contacts.length;
+    },
+    getContacts: function(){
+      return contacts;
     }
   };
 });

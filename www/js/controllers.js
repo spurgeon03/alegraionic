@@ -3,7 +3,15 @@ angular.module('starter.controllers', [])
 .controller('ContactsCtrl', function($scope, ContactsServices,$ionicScrollDelegate) {
   $scope.contacts = [];
   $scope.start = 0;
+  $scope.formsearch = {search:null};
 
+  $scope.$on('$ionicView.enter', function(){
+    var totalContacts = ContactsServices.countall();
+    if($scope.contacts.length != totalContacts){
+      $scope.contacts = ContactsServices.getContacts();
+    } 
+  });
+ 
   function successCallBack(contacts){
     $scope.contacts = contacts;
   }
@@ -29,14 +37,18 @@ angular.module('starter.controllers', [])
     ContactsServices.delete(contactId, removeFromScope);
   }
 
-  $scope.doRefresh = function(){
+  $scope.doRefresh = function(formsearch, searchForm){
     $scope.start = 0;
+    for (var elem in formsearch) {
+      formsearch[elem] = null;
+    }
+    searchForm.$setPristine();
     ContactsServices.all(successCallBack);
     $scope.$broadcast('scroll.refreshComplete');
   }
 
   $scope.loadMore = function() {
-    $scope.start += 5;
+    $scope.start += 10;
     ContactsServices.getLimit($scope.start,addMoreContacts);
     $scope.$broadcast('scroll.infiniteScrollComplete');
   };
@@ -48,6 +60,10 @@ angular.module('starter.controllers', [])
     }else{
       return true;
     }
+  }
+
+  $scope.searchBy = function(query){
+    ContactsServices.getByQuery(query,successCallBack); 
   }
 
   $scope.$on('$stateChangeSuccess', function() {
