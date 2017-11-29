@@ -1,0 +1,71 @@
+<ion-view view-title="Crear Contacto">
+  <ion-content>
+    <form name="createContact">
+      <ion-list>
+        <label class="item item-input">
+          <span class="input-label">Nombre</span>
+          <input type="text" ng-model="contact.name" name="name" id="name" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Nit</span>
+          <input type="text" ng-model="contact.identification">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Dirección</span>
+          <input type="text" ng-model="contact.address.address">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Ciudad</span>
+          <input type="text" ng-model="contact.address.city">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Email</span>
+          <input type="email" ng-model="contact.email" name="email" id="email">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Teléfono 1</span>
+          <input type="text" ng-model="contact.phonePrimary">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Teléfono 2</span>
+          <input type="text" ng-model="contact.phoneSecondary">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Fax</span>
+          <input type="text" ng-model="contact.fax">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Celular</span>
+          <input type="text" ng-model="contact.mobile">
+        </label>
+        <li class="item item-toggle">
+           Cliente
+           <label class="toggle toggle-assertive">
+             <input type="checkbox" ng-model="contact.client">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <li class="item item-toggle">
+           Proveedor
+           <label class="toggle toggle-assertive">
+             <input type="checkbox" ng-model="contact.provider">
+             <div class="track">
+               <div class="handle"></div>
+             </div>
+           </label>
+        </li>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Observaciones</span>
+          <textarea placeholder="..." ng-model="contact.observations"></textarea>
+        </label>
+        <div class="padding">
+            <p ng-show="createContact.name.$error.required">* El nombre es obligatorio</p>
+            <p ng-show="createContact.email.$invalid && !createContact.email.$pristine">* No es una dirección de email correcta</p>
+        </div>
+        <button class="button button-full button-positive" ng-disabled="createContact.$invalid" ng-click="createUser(contact)">Crear</button>
+      </ion-list>
+    </form>
+  </ion-content>
+</ion-view> 

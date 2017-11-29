@@ -1,0 +1,54 @@
+<ion-view view-title="Contacto">
+
+  <ion-content class="padding">
+
+    <h4>{{contact.name}}</h4>
+    <p ng-show="contact.identification">NIT: {{contact.identification}}</p>
+    <br>
+    <div class="list list-inset">
+
+        <a ng-if="contact.phonePrimary" class="item item-icon-left" href="tel:{{contact.phonePrimary}}">
+          <i class="icon ion-ios-telephone-outline"></i>
+          Teléfono 1: {{contact.phonePrimary}}
+        </a>
+        <a ng-if="contact.phoneSecondary" class="item item-icon-left" href="tel:{{contact.phoneSecondary}}">
+          <i class="icon ion-ios-telephone-outline"></i>
+          Teléfono 2: {{contact.phoneSecondary}}
+        </a>
+        <a ng-if="contact.mobile" class="item item-icon-left" href="tel:{{contact.mobile}}">
+          <i class="icon ion-iphone"></i>
+          Celular: {{contact.mobile}}
+        </a>
+        <a ng-if="contact.email" class="item item-icon-left" href="mailto:{{contact.email}}">
+          <i class="icon ion-email"></i>
+          Email: {{contact.email}}
+        </a>
+        <li ng-if="contact.fax" class="item item-icon-left">
+          <i class="icon ion-printer"></i>
+          Fax: {{contact.fax}}
+        </li>
+        <li ng-if="contact.address.city" class="item item-icon-left">
+          <i class="icon ion-navigate"></i>
+          Ciudad: {{contact.address.city}}
+        </li>
+        <li ng-if="contact.address.address" class="item item-icon-left">
+          <i class="icon ion-location"></i>
+          Dirección: {{contact.address.address}}
+        </li>
+        <li class="item item-divider">
+          Tipo de Usuario
+        </li>
+        <li ng-if="contact.type.length > 0" class="item item-icon-left" ng-repeat="t in contact.type">
+          <i class="icon ion-person"></i>
+          {{(t == 'client')? 'Cliente' : 'Proveedor'}}
+        </li>
+        <li ng-if="contact.type.length == 0" class="item item-divider">
+          Este usuario no tiene asignado un tipo.
+        </li>
+        <li ng-if="contact.observations" class="item item-icon-left">
+          <i class="icon ion-document"></i>
+          Observaciones: {{contact.observations}}
+        </li>
+    </div>
+  </ion-content>
+</ion-view>
