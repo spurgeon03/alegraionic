@@ -11,7 +11,7 @@ angular.module('starter.services', [])
     Authorization: Basic ZWplbXBsb2FwaUBhbGVncmEuY29tOnRva2VuZWplbXBsb2FwaTEyMzQ1
     Donde ZWplbXBsb2FwaUBhbGVncmEuY29tOnRva2VuZWplbXBsb2FwaTEyMzQ1 es base_64('ejemploapi@alegra.com:tokenejemploapi12345')
    */
-  var basicAuth = 'ZHVxdWVvc3Bpbjk0QGdtYWlsLmNvbToxODFjNWUyNmNkNDlhNzJhYjc5Mg==';
+  var basicAuth = '';
 
   return {
     all: function(addMoreContacts) {
