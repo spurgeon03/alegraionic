@@ -1,0 +1,35 @@
+<ion-view view-title="Contactos">
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh(formsearch, searchForm)"></ion-refresher>
+    <ion-list>
+      <form name="searchForm">
+        <div class="bar bar-header item-input-inset">
+          <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Buscar" ng-model="formsearch.search" required>
+          </label>
+          <button class="button button-positive" ng-disabled="searchForm.$invalid"  ng-click="searchBy(formsearch.search)">
+            Buscar
+          </button>
+        </div>
+      </form>
+      <label class="item item-input">
+        <input type="text" placeholder="Filtrar..." ng-model="searchInput"/>
+      </label>
+      <ion-item class="item-remove-animate item-icon-right" ng-repeat="contact in contacts | filter:searchInput" type="item-text-wrap" href="#/tab/contacts/{{contact.id}}">
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.email}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(contact.id)">
+          Borrar
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+
+    <ion-infinite-scroll
+      ng-if="moreDataCanBeLoaded()"
+      on-infinite="loadMore()">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view> 
